@@ -1,0 +1,66 @@
+login as: ec2-user
+Authenticating with public key "Udacity_key_pair" from agent
+Last login: Sat Dec 26 14:40:23 2020 from 103.117.236.202
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ec2-user@ip-10-0-2-20 ~]$ mysql -u admin -h primarydb-udacity.cdarmvn8xaab.us-east-1.rds.amazonaws.com -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 8.0.20 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| udacity            |
++--------------------+
+4 rows in set (0.01 sec)
+
+MySQL [(none)]> use udacity;
+Database changed
+MySQL [udacity]> create schema app;
+Query OK, 1 row affected (0.01 sec)
+
+MySQL [udacity]> CREATE TABLE IF NOT EXISTS app.order(
+    ->     order_id varchar(50),
+    ->     customer_order_id varchar(50),
+    ->     order_status varchar(20),
+    ->     order_purchase_timestamp timestamp
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+MySQL [udacity]> INSERT INTO app.order(order_id, customer_order_id, order_status, order_purchase_timestamp)
+    -> VALUES ('e481f51cbdc54678b7cc49136f2d6af7','9ef432eb6251297304e76186b10a928d','delivered','2020-07-01 10:56:33');
+Query OK, 1 row affected (0.00 sec)
+
+MySQL [udacity]> INSERT INTO app.order(order_id, customer_order_id, order_status, order_purchase_timestamp)
+    -> VALUES ('53cdb2fc8bc7dce0b6741e2150273451','b0830fb4747a6c6d20dea0b8c802d7ef','delivered','2020-07-02 20:41:37');
+Query OK, 1 row affected (0.01 sec)
+
+MySQL [udacity]> INSERT INTO app.order(order_id, customer_order_id, order_status, order_purchase_timestamp)
+    -> VALUES ('6942b8da583c2f9957e990d028607019','52006a9383bf149a4fb24226b173106f','shipped','2020-07-03 11:33:07');
+Query OK, 1 row affected (0.01 sec)
+
+MySQL [udacity]> select * from app.order;
++----------------------------------+----------------------------------+--------------+--------------------------+
+| order_id                         | customer_order_id                | order_status | order_purchase_timestamp |
++----------------------------------+----------------------------------+--------------+--------------------------+
+| e481f51cbdc54678b7cc49136f2d6af7 | 9ef432eb6251297304e76186b10a928d | delivered    | 2020-07-01 10:56:33      |
+| 53cdb2fc8bc7dce0b6741e2150273451 | b0830fb4747a6c6d20dea0b8c802d7ef | delivered    | 2020-07-02 20:41:37      |
+| 6942b8da583c2f9957e990d028607019 | 52006a9383bf149a4fb24226b173106f | shipped      | 2020-07-03 11:33:07      |
++----------------------------------+----------------------------------+--------------+--------------------------+
+3 rows in set (0.00 sec)
+
+MySQL [udacity]>

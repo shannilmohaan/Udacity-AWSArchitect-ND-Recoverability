@@ -1,0 +1,10 @@
+The application that we have created is a criticl application from a business point o view. Any outage or data loss will result into revenue loss. It is imporatn that the application is architected with the agreed RTO and RPO objectives keeping in mind. Plase see below the acceptable and agreed RTO and RPO objectives with the business.
+
+Minimum RTO for a single AZ outage - 15 minutes
+Minimum RTO for a single region outage - 1 hour
+Minimum RPO for a single AZ outage - 20 minutes
+Minimum RPO for a single region outage - 1 hour
+
+With a multi-AZ deployments, Amazon RDS automatically creates a primary DB instance and synchronously replicates the data to a stand by instance in different AZ. Each AZ runs on its own physically distinct, independent infrastructure, and is engineered to be highly reliable. In case of an infrastructure failure, Amazon RDS performs an automatic failover to the standby,so that one can resume database operations as soon as the failover is complete. Since the endpoint of the DB Instance remains the same after a failover, the application can resume database operation without the need for manual administrative intervention.
+
+In a multi-region read replica deployment, Amazon RDS uses the asynchronous replication method of the DB engine to update the Read Replica whenever there is a change made on the source DB instance. Unlike an Amazon RDS Multi-AZ configuration, failover to a Read Replica is not an automated process. This will lead to more time for recovery when ever there is a failure. 
